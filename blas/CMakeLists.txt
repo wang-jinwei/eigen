@@ -38,10 +38,12 @@ endif()
 
 add_dependencies(blas eigen_blas eigen_blas_static)
 
-install(TARGETS eigen_blas eigen_blas_static
-        RUNTIME DESTINATION bin
-        LIBRARY DESTINATION lib
-        ARCHIVE DESTINATION lib)
+if(TOP_PROJECT)
+  install(TARGETS eigen_blas eigen_blas_static
+          RUNTIME DESTINATION bin
+          LIBRARY DESTINATION lib
+          ARCHIVE DESTINATION lib)
+endif()
 
 if(EIGEN_Fortran_COMPILER_WORKS)
 
