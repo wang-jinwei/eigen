@@ -1,5 +1,16 @@
 project(Eigen3)
 
+if(EIGEN_CORE_FUNCTION_ONLY)
+
+cmake_minimum_required(VERSION 3.0)
+add_library(eigen INTERFACE)
+target_include_directories(eigen INTERFACE
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+  $<INSTALL_INTERFACE:>
+)
+
+else() # EIGEN_CORE_FUNCTION_ONLY
+
 cmake_minimum_required(VERSION 2.8.5)
 
 # guard against in-source builds
@@ -594,3 +605,5 @@ install ( FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/UseEigen3.cmake
 # Add uninstall target
 add_custom_target ( uninstall
     COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/EigenUninstall.cmake)
+
+endif() # EIGEN_CORE_FUNCTION_ONLY
