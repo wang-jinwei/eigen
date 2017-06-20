@@ -22,13 +22,11 @@ set(Eigen_HEADERS
   Splines
   )
 
+install(FILES
+  ${Eigen_HEADERS}
+  DESTINATION ${INCLUDE_INSTALL_DIR}/unsupported/Eigen COMPONENT Devel
+  )
 
-if(TOP_PROJECT)
-  install(FILES
-    ${Eigen_HEADERS}
-    DESTINATION ${INCLUDE_INSTALL_DIR}/unsupported/Eigen COMPONENT Devel
-    )
-  install(DIRECTORY src DESTINATION ${INCLUDE_INSTALL_DIR}/unsupported/Eigen COMPONENT Devel FILES_MATCHING PATTERN "*.h")
-endif()
+install(DIRECTORY src DESTINATION ${INCLUDE_INSTALL_DIR}/unsupported/Eigen COMPONENT Devel FILES_MATCHING PATTERN "*.h")
 
 add_subdirectory(CXX11)

@@ -102,12 +102,11 @@ endif()
 
 add_dependencies(lapack eigen_lapack eigen_lapack_static)
 
-if(TOP_PROJECT)
-  install(TARGETS eigen_lapack eigen_lapack_static
-          RUNTIME DESTINATION bin
-          LIBRARY DESTINATION lib
-          ARCHIVE DESTINATION lib)
-endif()
+install(TARGETS eigen_lapack eigen_lapack_static
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib)
+
         
         
 get_filename_component(eigen_full_path_to_testing_lapack "./testing/" ABSOLUTE)

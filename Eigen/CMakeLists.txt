@@ -11,10 +11,9 @@ foreach(f ${Eigen_directory_files})
   endif()
 endforeach(f ${Eigen_directory_files})
 
-if(TOP_PROJECT)
-  install(FILES
-    ${Eigen_directory_files_to_install}
-    DESTINATION ${INCLUDE_INSTALL_DIR}/Eigen COMPONENT Devel
-    )
-  install(DIRECTORY src DESTINATION ${INCLUDE_INSTALL_DIR}/Eigen COMPONENT Devel FILES_MATCHING PATTERN "*.h")
-endif()
+install(FILES
+  ${Eigen_directory_files_to_install}
+  DESTINATION ${INCLUDE_INSTALL_DIR}/Eigen COMPONENT Devel
+  )
+
+install(DIRECTORY src DESTINATION ${INCLUDE_INSTALL_DIR}/Eigen COMPONENT Devel FILES_MATCHING PATTERN "*.h")
