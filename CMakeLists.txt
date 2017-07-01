@@ -2,12 +2,34 @@ project(Eigen3)
 
 if(EIGEN_CORE_FUNCTION_ONLY)
 
+option(USE_AVX2 "Use AVX2 instruction set for x86_64 or i386." ON)
+option(USE_FMA "Use FMA instruction set for x86_64 or i386." ON)
+option(USE_NEON "Use NEON instruction set for ARMv7." ON)
+
 cmake_minimum_required(VERSION 3.0)
 add_library(eigen INTERFACE)
 target_include_directories(eigen INTERFACE
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
   $<INSTALL_INTERFACE:>
 )
+if(NOT MSVC)
+  if(${CMAKE_SYSTEM_PROCESSOR} STREQUAL x86_64 OR ${CMAKE_SYSTEM_PROCESSOR} STREQUAL i386)
+    if(USE_AVX2)
+      message(STATUS "AVX2 instruction set is used.")
+      target_compile_options(eigen INTERFACE $<$<COMPILE_LANGUAGE:CXX>:-mavx2>)
+    endif()
+    if(USE_FMA)
+      message(STATUS "FMA instruction set is used.")
+      target_compile_options(eigen INTERFACE $<$<COMPILE_LANGUAGE:CXX>:-mfma>)
+    endif()
+  endif()
+  if(${CMAKE_SYSTEM_PROCESSOR} STREQUAL armv7l)
+    if(USE_NEON)
+      message(STATUS "NEON instruction set is used.")
+      target_compile_options(eigen INTERFACE $<$<COMPILE_LANGUAGE:CXX>:-mfpu=neon>)
+    endif()
+  endif()
+endif()
 
 else() # EIGEN_CORE_FUNCTION_ONLY
 
